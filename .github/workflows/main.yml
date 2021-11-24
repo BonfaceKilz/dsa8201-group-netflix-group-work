@@ -1,0 +1,33 @@
+name: Generate pdf
+
+# Run actions when pushing to the main branch or when you create a
+# PR against it
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Git repo
+      uses: actions/checkout@v2
+
+    - name: Compile LaTex document
+      uses: xu-cheng/latex-action@v2
+      with:
+        root_file: main.tex
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: PDF
+        path: main.pdf
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags')
+      with:
+        files: main.pdf
