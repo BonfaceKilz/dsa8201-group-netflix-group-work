@@ -2,11 +2,7 @@ name: Generate pdf
 
 # Run actions when pushing to the main branch or when you create a
 # PR against it
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: push
 
 jobs:
   build_latex:
