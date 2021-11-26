@@ -30,6 +30,7 @@ jobs:
 
     - name: Slack upload
       uses: adrey/slack-file-upload-action@master
+      if: startsWith(github.ref, 'refs/tags/')
       with:
         token: ${{ secrets.SLACK_TOKEN }}
         path: main.pdf
